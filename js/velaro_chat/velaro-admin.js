@@ -17,6 +17,7 @@
 (function () {
 
     document.observe('dom:loaded', function () {
+        var baseUrl = $$('[name=velarobaseurl]')[0].value;
         var setupVelaroSelects = function () {
             var selectMappings = {
                 velaro_enabled: 'velaro-enabled',
@@ -30,7 +31,9 @@
                 $$('[name=' + selectMappings[key] + '] option').each(function (el) {
                     el.writeAttribute('selected', false);
                 });
-                $$('[name=' + selectMappings[key] + '] option[value="' + value + '"]')[0].writeAttribute('selected', true);
+                if(value){
+                    $$('[name=' + selectMappings[key] + '] option[value="' + value + '"]')[0].writeAttribute('selected', true);   
+                }
 
                 //setup change events
                 var $select = $$('[name=' + selectMappings[key] + ']')[0];
@@ -78,14 +81,14 @@
                 UserName: userName,
                 Password: password
             };
-            var request = new Ajax.Request('https://app.velaro.com/api/plugins/login',
+            var request = new Ajax.Request(baseUrl + '/api/plugins/login',
             {
                 method: 'post',
                 parameters: JSON.stringify(model),
                 contentType: 'application/json',
                 dataType: 'json',
                 onSuccess: function (response) {
-                    if(response.status == 200){
+                    if (response.status == 200) {
                         var start = response.responseText.indexOf('<Content>') + 9;
                         var end = response.responseText.indexOf('</Content>');
                         var data = JSON.parse(response.responseText.substring(start, end));
