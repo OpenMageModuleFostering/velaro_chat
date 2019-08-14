@@ -20,7 +20,6 @@
         var setupVelaroSelects = function () {
             var selectMappings = {
                 velaro_enabled: 'velaro-enabled',
-                velaro_mobile: 'velaro-mobile',
                 velaro_visitor_monitoring: 'velaro-visitor-monitoring'
             };
             var keys = Object.keys(selectMappings);
