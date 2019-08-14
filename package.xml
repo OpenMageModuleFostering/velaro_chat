@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <package>
     <name>Velaro_Chat</name>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
     <stability>stable</stability>
     <license uri="https://opensource.org/licenses/OSL-3.0">Open Software License (OSL)</license>
     <channel>community</channel>
     <extends/>
     <summary>Add Velaro Live Chat into your pages</summary>
     <description>Add Velaro Live Chat into your pages</description>
-    <notes>-Add cache busting to velaro setup page</notes>
+    <notes>-Upping php version requirement</notes>
     <authors><author><name>Velaro</name><user>jtuttle87</user><email>jonathan@velaro.com</email></author></authors>
-    <date>2016-03-22</date>
-    <time>14:13:53</time>
-    <contents><target name="magecommunity"><dir name="Velaro"><dir name="Chat"><dir name="Block"><dir name="Adminhtml"><file name="Chat.php" hash="b19da118e22d718aade5a5aa153b50d1"/></dir></dir><dir name="Helper"><file name="Data.php" hash="7f21fbcbf6d766b3a68c4383557448f6"/></dir><dir name="controllers"><file name="VelaroController.php" hash="b383dab0a586ae67322b15c48135cf54"/></dir><dir name="etc"><file name="adminhtml.xml" hash="e8492df651174367d07f9e2fded6076f"/><file name="config.xml" hash="34b0a1540bf02e7062b0305b8bee1c03"/><file name="system.xml" hash="f3684613501f217433b5d9b6c59444f9"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="velaro.xml" hash="b20d10f8f8e04c4817286ffd5b8a54b6"/></dir><dir name="template"><dir name="velaro"><file name="footerscripts.phtml" hash="333a3627721477f055b86827494df68b"/><file name="settings.phtml" hash="436bd6cbf31c31de24f4d22266b913fa"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="velaro.xml" hash="64adfbe3e88c67d94f16f2b880ff2842"/></dir><dir name="template"><dir name="velaro"><file name="chatscript.phtml" hash="08f4c212f841ac4f3d97ef33c0e11a3e"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Velaro_Chat.xml" hash="6b35a002ff559e0c99e1764dab21d641"/></dir></target><target name="mageweb"><dir name="js"><dir name="velaro_chat"><file name="velaro-admin.js" hash="9c4091d28d40f74aadef310065779e95"/></dir></dir></target></contents>
+    <date>2016-07-14</date>
+    <time>15:15:05</time>
+    <contents><target name="magecommunity"><dir name="Velaro"><dir name="Chat"><dir name="Block"><dir name="Adminhtml"><file name="Chat.php" hash="b19da118e22d718aade5a5aa153b50d1"/></dir></dir><dir name="Helper"><file name="Data.php" hash="7f21fbcbf6d766b3a68c4383557448f6"/></dir><dir name="controllers"><file name="VelaroController.php" hash="b383dab0a586ae67322b15c48135cf54"/></dir><dir name="etc"><file name="adminhtml.xml" hash="e8492df651174367d07f9e2fded6076f"/><file name="config.xml" hash="17af0d980e88dd0c70e4c0f93b543b6f"/><file name="system.xml" hash="f3684613501f217433b5d9b6c59444f9"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="velaro.xml" hash="b20d10f8f8e04c4817286ffd5b8a54b6"/></dir><dir name="template"><dir name="velaro"><file name="footerscripts.phtml" hash="333a3627721477f055b86827494df68b"/><file name="settings.phtml" hash="436bd6cbf31c31de24f4d22266b913fa"/></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="velaro.xml" hash="64adfbe3e88c67d94f16f2b880ff2842"/></dir><dir name="template"><dir name="velaro"><file name="chatscript.phtml" hash="042f90f0009c83a634b3b424f77920eb"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Velaro_Chat.xml" hash="6b35a002ff559e0c99e1764dab21d641"/></dir></target><target name="mageweb"><dir name="js"><dir name="velaro_chat"><file name="velaro-admin.js" hash="9c4091d28d40f74aadef310065779e95"/></dir></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.3.0</min><max>5.5.0</max></php></required></dependencies>
+    <dependencies><required><php><min>5.3.0</min><max>5.6.22</max></php></required></dependencies>
 </package>

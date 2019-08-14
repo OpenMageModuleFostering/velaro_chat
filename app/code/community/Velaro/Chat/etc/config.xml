@@ -90,12 +90,12 @@
             <visitormonitoring>1</visitormonitoring>
             <accountlinked>0</accountlinked>
             <velaroapikey></velaroapikey>
-            <!--<velarochatenv>dev</velarochatenv>
+            <velarochatenv>dev</velarochatenv>
             <velarobaseurl>http://consolenew.local.velaro.com</velarobaseurl>
-            <velaroapimainurl>http://main.api.local.velaro.com</velaroapimainurl>-->
-            <velarochatenv>prd</velarochatenv>
+            <velaroapimainurl>http://main.api.local.velaro.com</velaroapimainurl>
+            <!--<velarochatenv>prd</velarochatenv>
             <velarobaseurl>https://app.velaro.com</velarobaseurl>
-            <velaroapimainurl>https://api-main-us-east.velaro.com</velaroapimainurl>
+            <velaroapimainurl>https://api-main-us-east.velaro.com</velaroapimainurl>-->
             <velaropageassignments></velaropageassignments>
         </velaro>
     </default>
