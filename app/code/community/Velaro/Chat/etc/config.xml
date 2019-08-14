@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- /**
+ * Velaro
+ *
+ * notice of license
+ *
+ * this source file is subject to the open software license (osl 3.0)
+ * that is bundled with this package in the file license.txt.
+ * it is also available through the world-wide-web at this url:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_chat
+ * @copyright   copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  open software license (osl 3.0)
+ */ -->
+<config>
+    <modules>
+        <Velaro_Chat>
+            <version>1.0.2</version>
+        </Velaro_Chat>
+    </modules>
+    <frontend>
+        <layout>
+            <updates>
+                <velaro_chat>
+                    <file>velaro.xml</file>
+                </velaro_chat>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+            <layout>
+                <updates>
+                    <velaro_chat>
+                        <file>velaro.xml</file>
+                    </velaro_chat>
+                </updates>
+            </layout>
+            <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <velaro  translate="title" module="velaro_chat">
+                                            <title>Velaro Configuration section</title>
+                                        </velaro>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        </adminhtml>
+    <global>
+        
+        <helpers>
+            <velaro_chat>
+                <class>Velaro_Chat_Helper</class>
+            </velaro_chat>
+        </helpers>
+        <blocks>
+            <chat>
+                <class>Velaro_Chat_Block</class>
+            </chat>
+        </blocks>
+    </global>
+     <admin>
+         <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Velaro_Chat after="Mage_Adminhtml">Velaro_Chat</Velaro_Chat>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <default>
+        <velaro>
+            <enabled>1</enabled>
+            <username></username>
+            <password></password>
+            <siteIdentifier></siteIdentifier>
+            <visitormonitoring>1</visitormonitoring>
+            <accountlinked>0</accountlinked>
+            <velaroapikey></velaroapikey>
+            <!--<velarochatenv>dev</velarochatenv>
+            <velarobaseurl>http://consolenew.local.velaro.com</velarobaseurl>
+            <velaroapimainurl>http://main.api.local.velaro.com</velaroapimainurl>-->
+            <velarochatenv>prd</velarochatenv>
+            <velarobaseurl>https://app.velaro.com</velarobaseurl>
+            <velaroapimainurl>https://api-main-us-east.velaro.com</velaroapimainurl>
+            <velaropageassignments></velaropageassignments>
+        </velaro>
+    </default>
+</config>

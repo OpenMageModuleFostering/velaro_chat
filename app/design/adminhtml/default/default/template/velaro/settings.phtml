@@ -1,0 +1,157 @@
+<!--/**
+ * Velaro
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_Chat
+ * @copyright   Copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */-->
+<div>
+        <style>
+            .velaro-form{
+                background-color: white;
+                border-radius: .5em;
+            }
+            .velaro-form-header{
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                font-weight: bold;
+                color: #23282d;
+                font-size: 1.3em;
+                vertical-align: middle;
+                padding: 10px 0 0 10px;
+                margin: 0 5px 20px 5px;
+            }
+            .velaro-label-wrapper{
+                width: 250px;
+                float: left;
+                padding-left: 50px;
+                font-weight: bold;
+                color: #23282d;
+                font-size: 1.1em;
+            }
+            .velaro-input-group{
+                margin-bottom: 15px;
+            }
+            .thin{
+                font-weight: 300;
+            }
+            .velaro-button{
+                margin-left: 360px;
+            }
+            div.velaro-button input{
+                width: 80px;
+            }
+        </style>
+
+        <h2>Velaro Live Chat</h2>
+        <form name="velaro_form" method="post" action="<?php echo Mage::helper("adminhtml")->getUrl("*/*/save") ?>" class="velaro-form">
+            <input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+    
+            <div class="velaro-form-header">Configuration</div>
+            
+            <input type="hidden" name="velaro_site_identifier" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/siteIdentifier', Mage::app()->getStore()); ?>" />
+            <input type="hidden" name="velaro_api_key" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/velaroapikey', Mage::app()->getStore()); ?>" />
+            <input type="hidden" name="velaro_page_assignments" value="<?php echo htmlspecialchars(Mage::getStoreConfig('velaro/velaroconfig/velaropageassignments', Mage::app()->getStore())); ?>" />
+            <input type="hidden" name="velaro_enabled" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/enabled', Mage::app()->getStore()); ?>" />
+            <input type="hidden" name="velaro_visitor_monitoring" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/visitormonitoring', Mage::app()->getStore()); ?>" />
+            <input type="hidden" name="velarobaseurl" value="<?php echo Mage::getConfig()->getNode('default/velaro/velarobaseurl'); ?>" />
+
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label>Username <span class="thin">(email)</span></label></div>
+                <input type="text" name="velaro_username" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/username', Mage::app()->getStore());?>" />
+            </div>
+
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label class="velaro-label">Password</label></div>
+                <input type="password" name="velaro_password" value="<?php echo Mage::getStoreConfig('velaro/velaroconfig/password', Mage::app()->getStore());?>" />
+            </div>
+
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label class="velaro-label">Account is linked</label></div>
+                <label><?php echo(false != Mage::getStoreConfig('velaro/velaroconfig/accountlinked', Mage::app()->getStore()) ? 'Yes' : 'No <span class="thin">(Account must be linked to recieve chats)</span>') ?></label>
+            </div>
+
+            <div class="velaro-button">
+                <p class="submit"><input type="button" name="velaro_attach" id="velaro_attach" class="button button-primary" value="Link"></p>
+            </div>
+
+            <div class="velaro-form-header">Plugin Settings</div>
+
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label>Enabled</label></div>
+                <select name="velaro-enabled">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label>Enable Visitor Monitoring</label></div>
+                <select name="velaro-visitor-monitoring">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="velaro-form-header">Chat Routing</div>
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label class="velaro-label">When on Page</label></div>
+                <select class="velaro-page-select">
+                <?php 
+                    // get all pages for pages dropdown
+                    $velaro_pages =  Mage::getModel('cms/page')->getCollection();
+                    $velaro_page_select = '<select>';
+                    foreach ( $velaro_pages as $velaro_page ) {
+                	$option = '<option value="' . $velaro_page->page_id  . '">';
+	                $option .= $velaro_page->title;
+	                $option .= '</option>';
+	                echo $option;
+                }
+                ?>
+                </select>
+             </div>
+            <div class="velaro-input-group">
+                <div class="velaro-label-wrapper"><label class="velaro-label">Route chats to group</label></div>
+                <?php
+                    // if we have an api key, get list of groups from velaro, display in dropdown
+                    $velaro_api_key = Mage::getStoreConfig('velaro/velaroconfig/velaroapikey', Mage::app()->getStore);
+                    $velaro_base_url = Mage::getConfig()->getNode('default/velaro/velarobaseurl');
+                    if(!isset($velaro_api_key) || $velaro_api_key == '' ) {
+                        echo '<select class="velaro-group-select"><option value ="0">Default Group</option></select>';
+                    } 
+                    else {
+                    $velaro_group_args = array('APIKEY' => $velaro_api_key);
+                    $client = new Zend_Http_Client($velaro_base_url . '/api/plugins/groups');
+                    $client->setHeaders($velaro_group_args);
+                    $response = $client->request()->getBody();
+                    $velaro_groups = Zend_Json::decode($response);
+                    $velaro_group_select = '<select class="velaro-group-select"><option value ="0">Default Group</option>';
+                    if($velaro_api_key && is_array($velaro_groups)){
+                        foreach($velaro_groups as $velaro_group){
+                    	$velaro_group_select .= "\
+                        <option value='$velaro_group[Key]'>$velaro_group[Value]</option>";
+                    }
+                    }
+                    $velaro_group_select .= "\
+                    </select>";
+                    echo $velaro_group_select;
+                    }
+                ?>
+              </div>
+
+            <div class="velaro-button">
+                <p class="submit"><input type="submit" name="velaro_submit" id="velaro_submit" class="button button-primary" value="Save"></p>
+            </div>
+               
+        </form>
+</div>
+
+
+

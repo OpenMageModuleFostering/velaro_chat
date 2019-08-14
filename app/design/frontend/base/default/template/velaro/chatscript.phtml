@@ -1,0 +1,134 @@
+<!--/**
+ * Velaro
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_Chat
+ * @copyright   Copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */-->
+
+<style>
+    #velarochat img {
+        display: inline;
+    }
+</style>
+
+<?php if(!Mage::getStoreConfig('velaro/velaroconfig/enabled', Mage::app()->getStore()) || !Mage::getStoreConfig('velaro/velaroconfig/accountlinked', Mage::app()->getStore()))
+ {
+     return;
+ } 
+    $velaro_env = Mage::getConfig()->getNode('default/velaro/velarochatenv');
+
+    if('dev' == $velaro_env){
+        echo '<script src="http://azuregallerydev.blob.core.windows.net/velaroscripts/local-globals.js"></script>
+        <script src="http://cdn.local.velaro.com/APIVisitor/Lib/Js/dev/velaro.loadscripts.js"></script>';
+    }
+
+    if('prd' == $velaro_env){
+        echo '<script src="https://galleryuseastprod.blob.core.windows.net/velaroscripts/' . Mage::getStoreConfig('velaro/velaroconfig/siteIdentifier', Mage::app()->getStore()) . '/globals.js"></script>
+        <script src="https://galleryuseastprod.blob.core.windows.net/velaroscripts/velaro.loadscripts.js"></script>';
+    }
+?>
+
+
+   
+<script type="text/javascript">
+    velaro_args = {};
+    velaro_args.velaro_page_assignments = <?php echo (Mage::getStoreConfig('velaro/velaroconfig/velaropageassignments', Mage::app()->getStore())) != null ? Mage::getStoreConfig('velaro/velaroconfig/velaropageassignments', Mage::app()->getStore()): 'null'; ?>;
+    velaro_args.velaro_page_id = <?php echo ($this->getRequest()->getParam('page_id') == '' ? 'null' : $this->getRequest()->getParam('page_id'))?>;
+    
+    // parse out our page assingments and see if the current page has an assigned group, if not default to 0
+    var pageAssignments = velaro_args.velaro_page_assingments ? JSON.parse(velaro_args.velaro_page_assingments) : {};
+    var group = pageAssignments['page_' + velaro_args.velaro_page_id] || 0;
+
+     // properties needed for velaro chat
+    Velaro.Globals.ActiveSite = <?php echo (Mage::getStoreConfig('velaro/velaroconfig/siteIdentifier', Mage::app()->getStore())); ?>;
+    Velaro.Globals.ActiveGroup = group;
+    Velaro.Globals.InlineEnabled = true;
+    Velaro.Globals.VisitorMonitoringEnabled = <?php echo (Mage::getStoreConfig('velaro/velaroconfig/visitormonitoring', Mage::app()->getStore()) == 0 ? 'false': 'true'); ?>;
+    Velaro.Globals.InlinePosition = 0;
+    Velaro.Globals.CustomChatValues = { <?php $quote = Mage::getModel('checkout/session')->getQuote();
+                                      $quoteData= $quote->getData();
+                                      $sOrderId = Mage::getSingleton('checkout/session')->getLastOrderId();
+                                      $oOrder = Mage::getModel('sales/order')->load($sOrderId);
+                                      $succesTotal = $oOrder->getGrandTotal();
+                                      // if on checkout success page, total = total of the last order
+                                      if(Mage::app()->getFrontController()->getAction()->getFullActionName()== 'checkout_onepage_success'){
+                                          $total = $succesTotal;
+                                      }
+                                      $total = isset($total) ? $total : $quoteData['grand_total'];
+                                      echo (isset($total) ? ('MagentoCartTotal: ' . $total . ',' ) : 'MagentoCartTotal: 0,');
+
+                                      $cart = Mage::getModel('checkout/cart')->getQuote();
+                                      $allItems = $quote->getAllItems();
+                                      if(isset($allItems) && count($allItems) > 0){
+                                          echo 'MagentoCart: [';
+                                          foreach ($allItems as $item) {
+                                                $_product = Mage::getModel('catalog/product')->load($item->getProductId());
+                                                $_product_data = $_product->getData();
+                                                echo '{ Name: "' . $_product_data['name'] .
+                                                 '" , Price: ' . $_product_data['price'] .
+                                                 ' , Image: "' . $_product_data['image'] .
+                                                 '" , Url: "' . $_product->getProductUrl()  .
+                                                  '", Quantity: ' . $item->getQty() . '},';
+                                            }
+                                          echo '],';
+                                      } 
+
+                                      $rcv = Mage::getSingleton('Mage_Reports_Block_Product_Viewed')->getItemsCollection();
+                                      echo 'MagentoRecentlyViewedItems:[';
+                                      foreach ($rcv as $item)
+                                      {
+                                        $_product = Mage::getModel('catalog/product')->load($item->getProductId());
+                                        $_product_data = $_product->getData();
+                                        echo '{ Name: "' . $_product_data['name'] . '",' .
+                                              ' Image: "' . $_product_data['image'] . '",' .
+                                              ' Url: "' . $_product->getProductUrl()  . '",' .
+                                              ' Sku: "' . $_product_data['sku'] . '",' .
+                                              ' Price: "' . $_product_data['price'] . '",' .
+                                        '},';
+                                      }
+                                      echo '],';
+
+                                      echo 'MagentoRelatedItems:[';
+
+                                      $allRelatedProductIds = [];
+                                      foreach ($rcv as $item) {
+                                        $_product = Mage::getModel('catalog/product')->load($item->getProductId());
+                                        $relatedProducts = $_product->getRelatedProductIds();
+                                        foreach($relatedProducts as $relatedProduct){
+                                            if(false == in_array($relatedProduct, $allRelatedProductIds)){
+                                                array_push($allRelatedProductIds, $relatedProduct);
+                                            } 
+                                        }
+                                      }
+
+                                      foreach ($allRelatedProductIds as $id) {
+                                          $relatedProduct = Mage::getModel('catalog/product')->load($id);
+                                          $_product_data = $relatedProduct->getData();
+                                          echo '{ Name: "' . $_product_data['name'] . '",' .
+                                              ' Image: "' . $_product_data['image'] . '",' .
+                                              ' Url: "' . $_product->getProductUrl()  . '",' .
+                                              ' Sku: "' . $_product_data['sku'] . '",' .
+                                              ' Price: "' . $_product_data['price'] . '",' .
+                                        '},';
+                                      }
+
+                                      echo '],';
+
+                                      echo 'MagentoBaseUrl: "' . Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB) . '"';
+
+                                      ?>
+                                      }
+</script>
+<noscript>
+    <a href="https://www.velaro.com" title="Contact us" target="_blank">Questions?</a>
+    powered by <a href="http://www.velaro.com" title="Velaro live chat">velaro live chat</a>
+</noscript>

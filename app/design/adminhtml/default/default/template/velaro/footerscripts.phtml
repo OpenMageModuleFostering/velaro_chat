@@ -1,0 +1,46 @@
+<!--/**
+ * Velaro
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_Chat
+ * @copyright   Copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */-->
+<div>
+<script type="text/javascript">
+    // on click link, fire request to velaro to get the site identifier/api key for this login, will be stored in our options
+    $('#velaro_attach').off();
+    $('#velaro_attach').on('click', function () {
+        var userName = $('[name=velaro_username]').val();
+        var password = $('[name=velaro_password]').val();
+        var model = {
+            UserName: userName,
+            Password: password
+        };
+        $.ajax({
+            url: velaro_args.velaro_url,
+            type: 'POST',
+            data: JSON.stringify(model),
+            success: function (data) {
+                $('[name=velaro_site_identifier]').attr('value', data.Identifier);
+                $('[name=velaro_api_key]').attr('value', data.ApiKey);
+                $('input[type=submit]').click();
+            },
+            error: function (data) {
+                $('[name=velaro_site_identifier]').attr('value', null);
+                $('[name=velaro_api_key]').attr('value', null);
+                $('input[type=submit]').click();
+            },
+            dataType: 'json',
+            contentType: 'application/json'
+        });
+    });
+</script>
+</div>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0"?>
+<!-- /**
+ * Velaro
+ *
+ * notice of license
+ *
+ * this source file is subject to the open software license (osl 3.0)
+ * that is bundled with this package in the file license.txt.
+ * it is also available through the world-wide-web at this url:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_chat
+ * @copyright   copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  open software license (osl 3.0)
+ */ -->
+<layout>
+    <adminhtml_velaro_index>
+        <reference name="content">
+            <block type="adminhtml/template" name="velaro_index" template="velaro/settings.phtml" />
+        </reference>
+        <reference name="head">
+            <action method="addJs"><script>velaro_chat/velaro-admin.js</script></action>
+            <action method="addJs"><script>prototype/prototype.js</script></action>         
+        </reference>
+    </adminhtml_velaro_index>
+</layout>

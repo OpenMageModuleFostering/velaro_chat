@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- /**
+ * Velaro
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_Chat
+ * @copyright   Copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */ -->
+<config>
+    <tabs>
+        <velaroconfig translate="label" module="velaro_chat">
+            <label>Velaro</label>
+            <sort_order>99999</sort_order>
+        </velaroconfig>
+    </tabs>
+    <sections>
+        <velaro>
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>velaroconfig</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>500</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <velaroconfig translate="label">
+                    <label>Configure Velaro</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled tranlate="label">
+                            <label>Velaro Chat Active</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <username translate="label">
+                            <label>Username</label>
+                            <comment>(email address)</comment>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>30</sort_order>
+                            <depends><enabled>1</enabled></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </username>
+                        <password translate="label">
+                            <label>Password</label>
+                            <sort_order>50</sort_order>
+                            <depends><enabled>1</enabled></depends>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </password>
+                        <siteIdentifier translate="label">
+                            <label>Site Identifier</label>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>60</sort_order>
+                            <depends><enabled>1</enabled></depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </siteIdentifier>
+                        <visitormonitoring tranlate="label">
+                            <label>Visitor monitoring enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </visitormonitoring>
+                        <accountlinked tranlate="label">
+                            <label>Account Linked</label>
+                            <frontend_type>label</frontend_type>
+                            <depends><enabled>1</enabled></depends>
+                            <sort_order>90</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </accountlinked>
+                        <velaroapikey tranlate="label">
+                            <label></label>
+                            <frontend_type>label</frontend_type>
+                            <depends><enabled>1</enabled></depends>
+                            <sort_order>90</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </velaroapikey>
+                        <velarobaseurl tranlate="label">
+                            <label></label>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </velarobaseurl>
+                        <velaroapimainurl tranlate="label">
+                            <label></label>
+                            <frontend_type>label</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </velaroapimainurl>
+                        <velaropageassignments tranlate="label">
+                            <label></label>
+                            <frontend_type>label</frontend_type>
+                            <depends><enabled>1</enabled></depends>
+                            <sort_order>90</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </velaropageassignments>
+                    </fields>
+                </velaroconfig>
+            </groups>
+        </velaro>
+    </sections>
+</config>

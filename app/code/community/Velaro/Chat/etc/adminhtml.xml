@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!-- /**
+ * Velaro
+ *
+ * notice of license
+ *
+ * this source file is subject to the open software license (osl 3.0)
+ * that is bundled with this package in the file license.txt.
+ * it is also available through the world-wide-web at this url:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category    Velaro
+ * @package     Velaro_chat
+ * @copyright   copyright (c) 2015 Velaro (http://www.velaro.com)
+ * @license     http://opensource.org/licenses/osl-3.0.php  open software license (osl 3.0)
+ */ -->
+<config>
+    <menu>
+        <velaro translate="title" module="velaro_chat">
+            <title>Velaro</title>
+            <sort_order>10</sort_order>
+            <action>adminhtml/velaro</action>
+        </velaro>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <velaro  translate="title" module="velaro_chat">
+                        <title>Velaro</title>
+                        <sort_order>65</sort_order>
+                    </velaro>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>
