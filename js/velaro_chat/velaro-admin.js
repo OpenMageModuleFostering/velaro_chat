@@ -104,6 +104,14 @@
         });
         matchVelaroGroup();
         setupVelaroSelects();
+
+        // stop enter from submitting form since we also have a link button
+        $$('input').forEach(function (input) {
+            input.on('keypress', function (event) {
+                var key = event.which || event.keyCode;
+                if (key === Event.KEY_RETURN) Event.stop(event)
+            });
+        });
     })
 
 

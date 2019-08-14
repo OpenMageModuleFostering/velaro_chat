@@ -57,6 +57,7 @@ class Velaro_Chat_VelaroController extends Mage_Adminhtml_Controller_Action
                     $json = Zend_Json::encode($conversion);
                     $response = $client->setRawData($json, 'application/json')->request('POST');
         }
+        Mage::app()->getCacheInstance()->flush(); 
         $this->_redirect('*/velaro/index');
     }
 
