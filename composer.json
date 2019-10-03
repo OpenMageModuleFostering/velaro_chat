@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Velaro_Chat",
+    "name": "OpenMageModuleFostering\/Velaro_Chat",
     "type": "magento-module",
     "license": "Open-Software-License-(OSL)",
     "homepage": "",
     "description": "Add Velaro Live Chat into your pages",
     "authors": [
-    {
-        "name": "Velaro",
-        "email": "jonathan@velaro.com"
-    }
-],
+        {
+            "name": "Velaro",
+            "email": "jonathan@velaro.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
